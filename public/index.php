@@ -1,16 +1,18 @@
 <?php
 
-use core\Router;
-require __DIR__ . '\..\core\Router.php';
-//echo $_SERVER['QUERY_STRING'];
+use core\database\PdoConnect;
+use core\routing\Router;
+
+require __DIR__ . '\..\vendor\autoload.php';
+require __DIR__ . '\..\config\config.php';
 
 $router = new Router();
-//echo get_class($router);
 
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('posts', ['controller' => 'Posts', 'action' => 'index']);
-$router->add('posts/new', ['controller' => 'Posts', 'action' => 'new']);
+$router->add('{controller}/{action}');
+$router->add('admin/{controller}/{action}', ["namespace" => "admin"]);
+$router->add('{controller}/{id:\d+}/{action}');
 
-echo '<pre>';
-var_dump($router->getRoutes());
-echo '</pre>';
+$router->dispatch($_SERVER['QUERY_STRING']);
+

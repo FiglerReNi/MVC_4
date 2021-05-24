@@ -1,0 +1,18 @@
+{
+  "description":"",
+  "name":"vendor/mainproject",
+  "autoload": {
+    "psr-4": { "": "src" }
+  },
+  "require": {
+    "squizlabs/php_codesniffer": "3.*",
+    "twig/twig" :"^3.0",
+    "ext-pdo": "*"
+  },
+  "scripts": {
+    "codesniffer": [
+      "phpcs --standard=PSR12 src"
+    ]
+  }
+
+}
