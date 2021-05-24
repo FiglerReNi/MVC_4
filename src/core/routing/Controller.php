@@ -2,6 +2,8 @@
 
 namespace core\routing;
 
+use Exception;
+
 abstract class Controller
 {
     protected $routeParams = [];
@@ -21,7 +23,7 @@ abstract class Controller
                 $this->after();
             }
         } else {
-            echo "Method $method not found in controller " . get_class($this);
+            throw new Exception( "Method $method not found in controller " . get_class($this));
         }
     }
 

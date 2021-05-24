@@ -6,6 +6,9 @@ use core\routing\Router;
 require __DIR__ . '\..\vendor\autoload.php';
 require __DIR__ . '\..\config\config.php';
 
+set_error_handler('core\handler\Error::errorHandler');
+set_exception_handler('core\handler\Error::exceptionHandler');
+
 $router = new Router();
 
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
