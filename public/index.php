@@ -7,8 +7,8 @@ require __DIR__ . '\..\vendor\autoload.php';
 require __DIR__ . '\..\config\config.php';
 
 error_reporting(E_ALL);
-set_error_handler('core\handler\Error::errorHandler');
-set_exception_handler('core\handler\Error::exceptionHandler');
+set_error_handler('controllers\Error::errorHandler');
+set_exception_handler('controllers\Error::exceptionHandler');
 
 $router = new Router();
 

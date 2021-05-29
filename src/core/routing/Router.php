@@ -1,6 +1,8 @@
 <?php
 
 namespace core\routing;
+use Exception;
+
 class Router
 {
     private array $routes = [];
@@ -71,7 +73,7 @@ class Router
                 throw new Exception("Controller class $controller not found");
             }
         } else {
-            throw new Exception("No route found for URL $url");
+            throw new Exception("No route found for URL $url", 404);
         }
     }
 

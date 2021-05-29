@@ -1,9 +1,10 @@
 <?php
 
-namespace core\handler;
+namespace controllers;
 
 use core\constans\Constants;
 use core\logger\Log;
+use core\twig\TwigConfigure;
 use ErrorException;
 use Exception;
 
@@ -22,6 +23,10 @@ class Error
          * @var Exception $exception
         */
 
+        $httpSatusCode = $exception->getCode();
+        if($httpSatusCode !== 404) $httpSatusCode = 500;
+        http_response_code($httpSatusCode);
+
         if(Constants::SHOW_ERRORS){
             echo "<h1>Fatal exception</h1>";
             echo "<p>Uncaught exception: '" . get_class($exception) . "'</p>";
@@ -36,7 +41,10 @@ class Error
             $message .= "<p>Stack trace: '" . $exception->getTraceAsString() . "'</p>";
             $message .= "<p>Throw in: '" . $exception->getFile() . "' on line " .$exception->getLine(). "</p>";
             new Log($fileName, $message);
-            echo "<h1>An error occured</h1>";
+            if($httpSatusCode === 404)
+                echo TwigConfigure::getTwigEnvironment()->render('404.twig', ['data' => "Page not found"]);
+            else
+                echo TwigConfigure::getTwigEnvironment()->render('500.twig', ['data' => "An error occurred"]);
         }
 
     }
